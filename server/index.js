@@ -1,16 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import authRoute from "./routes/authRoute.js";
 import connectDb from "./db/connectDb.js";
-import { stat } from "fs";
 dotenv.config();
 
 const app = express();
 
-
 // Database connection
 connectDb(process.env.MONGO_URI);
 
+app.use(cors());
 
 
 // middleware
