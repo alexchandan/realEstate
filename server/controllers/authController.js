@@ -13,17 +13,17 @@ export const signup = async (req, res, next) => {
         res.status(201).json("User created Successfully");
     } catch (error) {
         next(error);
-        // next(errorHandler(550, "Error from the utils"));
     }
 }
 
 export const signin = async (req, res, next) => {
     const { email, password } = req.body;
     try {
-        const validUser = await User.findOne({ email });
-        if (!validUser) return next(404, "Oops..! User not found.")
-        const validPassword = await bcrypt.compareSync(password, validUser.password);
-        if (!validPassword) return next(401, "Invalid Password");
+        const validUser = await User.findOne({ $or: [{ username: email }, { email: email }] });
+        console.log(validUser);
+        if (!validUser) return next(errorHandler(404, "User not found."));
+        const validPassword = bcrypt.compareSync(password, validUser.password);
+        if (!validPassword) return next(errorHandler(401, "Invalid Password"));
         const token = jwt.sign({ id: validUser._id }, process.env.SECRET_KEY);
         const { password: pass, ...rest } = validUser._doc;
 

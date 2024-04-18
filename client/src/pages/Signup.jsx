@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Signin from './Signin'
 
 function Signup() {
     const [formData, setFormData] = useState({});
