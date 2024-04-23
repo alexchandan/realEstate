@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import userRoute from "./routes/userRoute.js";
 import authRoute from "./routes/authRoute.js";
 import connectDb from "./db/connectDb.js";
 dotenv.config();
@@ -14,10 +16,15 @@ app.use(cors());
 
 
 // middleware
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
-
-app.use("/", authRoute);
+// app.use("/api/user", (req, res) => {
+//     res.send("this is res from index.js");
+// });
+app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);
 
 
 // middleware for handling error
