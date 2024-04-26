@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/userRoute.js";
 import authRoute from "./routes/authRoute.js";
+import listingRoute from "./routes/listingRoute.js";
 import connectDb from "./db/connectDb.js";
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 // });
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
+app.use("/api/listing", listingRoute)
 
 
 // middleware for handling error
