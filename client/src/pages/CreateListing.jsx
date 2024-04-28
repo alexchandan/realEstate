@@ -19,7 +19,7 @@ export default function CreateListing() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFromData] = useState({
-    imageUrls: [],
+    imageUrl: [],
     name: "",
     description: "",
     address: "",
@@ -36,7 +36,7 @@ export default function CreateListing() {
 
   const handleImagesubmit = (e) => {
     console.log("helo handleimagge");
-    if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+    if (files.length > 0 && files.length + formData.imageUrl.length < 7) {
       setUploading(true);
       setImageUploadError(false);
       const promises = [];
@@ -48,7 +48,7 @@ export default function CreateListing() {
         .then((urls) => {
           setFromData({
             ...formData,
-            imageUrls: formData.imageUrls.concat(urls),
+            imageUrl: formData.imageUrl.concat(urls),
           });
           setImageUploadError(false);
           setUploading(false);
@@ -91,7 +91,7 @@ export default function CreateListing() {
   const handleRemoveImage = (index) => {
     setFromData({
       ...formData,
-      imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+      imageUrl: formData.imageUrl.filter((_, i) => i !== index),
     });
   };
 
@@ -130,7 +130,7 @@ export default function CreateListing() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (formData.imageUrls.length < 1)
+      if (formData.imageUrl.length < 1)
         return setError("You must upload at least one image");
       if (+formData.regularPrice < +formData.discountPrice) {
         return setError("Discount price must be lower than regular price");
@@ -142,14 +142,14 @@ export default function CreateListing() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, useRef: currentUser._id }),
+        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
       });
       const data = await res.json();
       setLoading(false);
       if (data.success === false) {
         setError(data.message);
       }
-      Navigate(`/listing/${data._id}`);
+      // Navigate(`/api/user/listings/${currentUser._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -347,8 +347,8 @@ export default function CreateListing() {
           <p className="text-red-700 text-sm">
             {imageUploadError && imageUploadError}
           </p>
-          {formData.imageUrls.length > 0 &&
-            formData.imageUrls.map((url, index) => (
+          {formData.imageUrl.length > 0 &&
+            formData.imageUrl.map((url, index) => (
               <div
                 key={url}
                 className="flex justify-between p-3 border items-center"
