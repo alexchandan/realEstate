@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { errorHandler } from "../utils/error.js";
 import Listing from "../models/Listing.js";
 export const updateUser = async (req, res, next) => {
-  console.log("update user called");
+  // console.log("update user called");
   if (req.user.id !== req.params.id)
     return next(errorHandler(401, 'You can only update your own account!'));
   try {
@@ -43,12 +43,12 @@ export const deleteUser = async (req, res, next) => {
 }
 
 export const getUserListings = async (req, res, next) => {
-  console.log("get user listings")
+  // console.log("get user listings")
   if (req.user.id === req.params.id) {
     try {
       const listings = await Listing.find({ userRef: req.params.id });
       res.status(200).json(listings);
-      console.log(listings)
+      // console.log(listings)
     } catch (error) {
       next(error);
     }

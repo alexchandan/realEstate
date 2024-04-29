@@ -31,13 +31,10 @@ function Profile() {
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [showListingError, setShowListingError] = useState(false);
+  console.log("show listing error,", error);
   const [userListing, setUserListing] = useState([]);
   const [formData, setFormData] = useState({});
   console.log("user listing: ", userListing);
-  console.log(formData);
-  console.log(filePerc);
-  console.log(fileUploadError);
-  // console.log(file);
   const dispatch = useDispatch();
   useEffect(() => {
     if (file) {
