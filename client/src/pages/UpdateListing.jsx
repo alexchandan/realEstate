@@ -167,7 +167,7 @@ export default function UpdateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      Navigate(`/listings/${currentUser._id}`);
+      Navigate(`/listing/${params.listingId}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
