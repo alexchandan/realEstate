@@ -25,7 +25,6 @@ function Listing() {
         }
 
         setListing(data);
-        console.log(listing);
         setError(false);
         setLoading(false);
       } catch (error) {
@@ -48,7 +47,7 @@ function Listing() {
             {listing.imageUrl.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[300px]"
+                  className="h-[350px]"
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",

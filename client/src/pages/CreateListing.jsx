@@ -32,10 +32,8 @@ export default function CreateListing() {
     parking: false,
     furnished: false,
   });
-  console.log(formData);
 
   const handleImagesubmit = (e) => {
-    console.log("helo handleimagge");
     if (files.length > 0 && files.length + formData.imageUrl.length < 7) {
       setUploading(true);
       setImageUploadError(false);
@@ -74,7 +72,6 @@ export default function CreateListing() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`upload is: ${progress}% done`);
         },
         (error) => {
           reject(error);
@@ -149,7 +146,7 @@ export default function CreateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      // Navigate(`/api/user/listings/${currentUser._id}`);
+      Navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);

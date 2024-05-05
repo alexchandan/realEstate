@@ -33,17 +33,14 @@ export default function UpdateListing() {
     parking: false,
     furnished: false,
   });
-  console.log(formData);
 
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.listingId;
-      console.log(listingId);
       const res = await fetch(`/api/listing/get/${listingId}`);
       const data = await res.json();
 
       if (data.success === false) {
-        console.log(data.message);
         return;
       }
 
@@ -53,7 +50,6 @@ export default function UpdateListing() {
   }, []);
 
   const handleImagesubmit = (e) => {
-    console.log("helo handleimagge");
     if (files.length > 0 && files.length + formData.imageUrl.length < 7) {
       setUploading(true);
       setImageUploadError(false);

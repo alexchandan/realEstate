@@ -19,7 +19,6 @@ function Signin() {
       [e.target.id]: e.target.value,
     });
   };
-  // console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,10 +32,8 @@ function Signin() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
         dispatch(signInFailure(data.message));
-        console.log("this is data message", data.message);
         return;
       }
       dispatch(signInSuccess(data));
