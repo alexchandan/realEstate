@@ -17,30 +17,11 @@ export default function Contact({ listing }) {
         const data = await res.json();
         setLandlord(data);
       } catch (error) {
-        console.log(error);
+        console.log("error", error);
       }
     };
     fetchLandlord();
   }, [listing.userRef]);
-
-  const handleSendMessage = () => {
-    const emailSubject = `Regarding ${listing.name}`;
-    const mailtoUrl = `mailto:${landlord.email}?subject=${encodeURIComponent(
-      emailSubject
-    )}&body=${encodeURIComponent(message)}`;
-
-    console.log(
-      "hello.....",
-      emailSubject,
-      "mailtourl",
-      mailtoUrl,
-      "message",
-      message
-    );
-
-    // Open the mailto link in the same tab/window
-    window.location.href = mailtoUrl;
-  };
 
   return (
     <>
@@ -63,19 +44,12 @@ export default function Contact({ listing }) {
             className="w-full border p-3 rounded-lg"
           ></textarea>
 
-          {/* <Link
+          <Link
             to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
             className="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95"
           >
             Send Message
-          </Link> */}
-
-          <button
-            className="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95"
-            onClick={handleSendMessage}
-          >
-            Send Message
-          </button>
+          </Link>
         </div>
       )}
     </>
