@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ListingItem from "../components/ListingItem";
 
 export default function () {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function () {
     order: "desc",
   });
 
-  const [listing, setListing] = useState(null);
+  const [listing, setListing] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -212,7 +213,29 @@ export default function () {
         </form>
       </div>
 
-      <div className="">Listing items</div>
+      <div className="flex-1">
+        <h1 className="text-3xl font-semibold border-b text-slate-700 mt-5 p-3">
+          Listing Result
+        </h1>
+
+        <div className="flex flex-wrap gap-4 p-7">
+          {!loading && listing.length === 0 && (
+            <p className="text-xl text-xl-700">No listing found!</p>
+          )}
+
+          {loading && (
+            <p className="text-center text-xl text-slate-700 w-full">
+              Loading...
+            </p>
+          )}
+
+          {!loading &&
+            listing &&
+            listing.map((items) => (
+              <ListingItem key={items._id} listing={items} />
+            ))}
+        </div>
+      </div>
     </div>
   );
 }
