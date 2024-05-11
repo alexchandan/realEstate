@@ -40,6 +40,7 @@ function Header() {
             type="text"
             placeholder="Search..."
             className="bg-transparent focus:outline-none"
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <FaSearch className="text-slate-600" />
