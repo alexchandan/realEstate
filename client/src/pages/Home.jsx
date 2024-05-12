@@ -12,8 +12,6 @@ function Home() {
   const [rentListing, setRentListing] = useState([]);
   SwiperCore.use(Navigation);
 
-  console.log("offerlisting", offerListing);
-
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
