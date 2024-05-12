@@ -21,7 +21,6 @@ import {
   signoutUserFailure,
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
-import Listing from "../../../server/models/Listing.js";
 
 function Profile() {
   const fileRef = useRef(null);

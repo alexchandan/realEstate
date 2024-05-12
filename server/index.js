@@ -4,13 +4,19 @@ import cookieParser from "cookie-parser";
 import userRoute from "./routes/userRoute.js";
 import authRoute from "./routes/authRoute.js";
 import listingRoute from "./routes/listingRoute.js";
+import mongoose from "mongoose";
 import connectDb from "./db/connectDb.js";
 import path from "path"
 dotenv.config();
 const app = express();
 
 // Database connection
-connectDb(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    console.log("connected to mongo");
+})
+    .catch((error) => {
+        console.log(error);
+    })
 
 const __dirname = path.resolve();
 
