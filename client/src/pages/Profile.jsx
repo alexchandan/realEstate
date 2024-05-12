@@ -51,9 +51,7 @@ function Profile() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // console.log("upload is : " + Math.round(progress + "% done.");
         setFilePerc(Math.round(progress));
-        // console.log(progress);
       },
       (error) => {
         setFileUploadError(true);
@@ -134,9 +132,7 @@ function Profile() {
         setShowListingError(true);
         return;
       }
-      console.log("show listing", data);
       setUserListing(data);
-      // console.log("user listing", userListing);
     } catch (error) {
       setShowListingError(true);
     }
