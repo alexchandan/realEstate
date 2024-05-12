@@ -21,7 +21,6 @@ import {
   signoutUserFailure,
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
-import Listing from "../../../server/models/Listing.js";
 
 function Profile() {
   const fileRef = useRef(null);
@@ -51,9 +50,7 @@ function Profile() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // console.log("upload is : " + Math.round(progress + "% done.");
         setFilePerc(Math.round(progress));
-        // console.log(progress);
       },
       (error) => {
         setFileUploadError(true);
@@ -134,9 +131,7 @@ function Profile() {
         setShowListingError(true);
         return;
       }
-      console.log("show listing", data);
       setUserListing(data);
-      // console.log("user listing", userListing);
     } catch (error) {
       setShowListingError(true);
     }
@@ -149,15 +144,12 @@ function Profile() {
       });
       const data = await res.json();
       if (data.success === false) {
-        console.log(data.message);
         return;
       }
       setUserListing((prev) =>
         prev.filter((listing) => listing._id !== listingId)
       );
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
   return (
     <div className="p-3 max-w-lg mx-auto">
