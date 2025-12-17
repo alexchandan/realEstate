@@ -1,12 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import userRoute from "./routes/userRoute.js";
 import authRoute from "./routes/authRoute.js";
 import listingRoute from "./routes/listingRoute.js";
+import userRoute from "./routes/userRoute.js";
 import connectDb from "./db/connectDb.js";
 import path from "path"
 dotenv.config();
+
+
 const app = express();
 
 // Database connection
@@ -15,9 +17,11 @@ connectDb(process.env.MONGO_URI);
 const __dirname = path.resolve();
 
 
-// middleware
+// // middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
@@ -41,6 +45,7 @@ app.use((err, req, res, next) => {
         message
     })
 })
+
 
 app.listen(3000, () => {
     console.log("Server listening at port 3000");
