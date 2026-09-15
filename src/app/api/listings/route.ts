@@ -1,8 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { checkRateLimit } from '@/lib/rateLimit';
+import { sanitizeObject, apiSuccess, apiError } from '@/lib/security';
+import { validateListingInput } from '@/lib/validations';
 
 export async function GET(request: NextRequest) {
   try {
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+    const rateCheck = checkRateLimit(`get_listings_${ip}`, 120, 60000);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        apiError('Rate limit exceeded. Please try again shortly.'),
+        { status: 429, headers: { 'Retry-After': String(Math.ceil(rateCheck.resetMs / 1000)) } }
+      );
+    }
+
     const searchParams = request.nextUrl.searchParams;
     const searchTerm = searchParams.get('searchTerm') || undefined;
     const city = searchParams.get('city') || undefined;
@@ -32,18 +44,39 @@ export async function GET(request: NextRequest) {
       sort,
     });
 
-    return NextResponse.json(listings);
+    return NextResponse.json(apiSuccess(listings, undefined, { total: listings.length }));
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    console.error('Error fetching listings:', error);
+    return NextResponse.json(apiError('Failed to fetch listings.'), { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const newListing = await db.createListing(body);
-    return NextResponse.json(newListing, { status: 201 });
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+    const rateCheck = checkRateLimit(`post_listings_${ip}`, 20, 60000);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        apiError('Too many submissions. Please slow down.'),
+        { status: 429 }
+      );
+    }
+
+    const rawBody = await request.json();
+    const sanitizedBody = sanitizeObject(rawBody);
+
+    const validation = validateListingInput(sanitizedBody);
+    if (!validation.valid) {
+      return NextResponse.json(
+        { success: false, error: 'Validation failed', errors: validation.errors },
+        { status: 400 }
+      );
+    }
+
+    const newListing = await db.createListing(sanitizedBody);
+    return NextResponse.json(apiSuccess(newListing, 'Listing created successfully'), { status: 201 });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    console.error('Error creating listing:', error);
+    return NextResponse.json(apiError('Failed to create listing.'), { status: 500 });
   }
 }

@@ -34,9 +34,15 @@
   body {
     background-color: rgb(var(--background));
     color: rgb(var(--foreground));
+    font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display), 'Outfit', system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -116,3 +122,48 @@
   transform: scale(1.12);
   background: #0f172a;
 }
+
+/* Print-ready Property Brochure Stylesheet */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt !important;
+  }
+  
+  /* Hide interactive web elements when printing */
+  nav, footer, .glass-nav, [role="dialog"], button, .no-print, input, textarea, select {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Page break rules */
+  .page-break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a[href]:after {
+    content: none !important;
+  }
+}
+
+/* Toast Spring Animation */
+@keyframes toastSlideIn {
+  from {
+    transform: translateY(1rem) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-toast {
+  animation: toastSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+

@@ -3,12 +3,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ListingCard } from '@/components/ListingCard';
-import { MapView } from '@/components/MapView';
+import dynamic from 'next/dynamic';
 import { ShareModal } from '@/components/ShareModal';
 import { SEED_PROPERTIES } from '@/lib/seedData';
 import { PropertyListing } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
 import { useNotifications } from '@/context/NotificationContext';
+import { useToast } from '@/context/ToastContext';
+
+const MapView = dynamic(() => import('@/components/MapView').then((mod) => mod.MapView), {
+  ssr: false,
+  loading: () => (
+    <div className="h-full w-full min-h-[400px] flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900/60 rounded-3xl animate-pulse border border-slate-200 dark:border-slate-800">
+      <div className="w-10 h-10 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mb-3" />
+      <span className="text-xs font-semibold text-slate-500">Loading Geospatial Map & POI Layers...</span>
+    </div>
+  ),
+});
 import {
   Search,
   Filter,
@@ -29,6 +40,7 @@ export default function SearchPage() {
   const router = useRouter();
   const { formatPrice } = useCurrency();
   const { addNotification } = useNotifications();
+  const { showToast } = useToast();
 
   // URL state initialization
   const initialSearch = searchParams.get('searchTerm') || '';
@@ -176,7 +188,11 @@ export default function SearchPage() {
       message: `You will receive instant alerts for newly listed properties matching "${searchTerm || selectedCity}".`,
       read: false,
     });
-    alert('Search saved! You will receive notification alerts on matching price drops & new listings.');
+    showToast({
+      type: 'success',
+      title: 'Search Alert Saved',
+      message: `Notifications enabled for ${searchTerm || selectedCity || 'current filters'}.`,
+    });
   };
 
   const resetFilters = () => {
@@ -422,6 +438,26 @@ export default function SearchPage() {
             />
           </div>
         )}
+
+        {/* Mobile Floating Map / List Toggle (Airbnb / Zillow pattern) */}
+        <div className="lg:hidden fixed bottom-20 left-1/2 -translate-x-1/2 z-30">
+          <button
+            onClick={() => setViewMode(viewMode === 'map' ? 'split' : 'map')}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs shadow-2xl hover:scale-105 active:scale-95 transition-all border border-slate-700/30"
+          >
+            {viewMode === 'map' ? (
+              <>
+                <Grid className="w-4 h-4" />
+                <span>Show List</span>
+              </>
+            ) : (
+              <>
+                <Map className="w-4 h-4" />
+                <span>Show Map</span>
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Slide-over Advanced Filter Drawer */}

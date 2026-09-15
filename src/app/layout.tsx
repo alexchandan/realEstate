@@ -1,6 +1,22 @@
 import type { Metadata, Viewport } from 'next';
+import { Plus_Jakarta_Sans, Outfit } from 'next/font/google';
 import '@/styles/globals.css';
 import 'leaflet/dist/leaflet.css';
+
+const fontSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800'],
+});
+
+const fontDisplay = Outfit({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
+
 import { ThemeProvider } from '@/context/ThemeContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { CurrencyProvider } from '@/context/CurrencyContext';
@@ -11,6 +27,8 @@ import { Footer } from '@/components/Footer';
 import { MobileNav } from '@/components/MobileNav';
 import { NotificationDrawer } from '@/components/NotificationDrawer';
 import { AiAssistantModal } from '@/components/AiAssistantModal';
+import { ToastProvider } from '@/context/ToastContext';
+import { ToastContainer } from '@/components/ToastContainer';
 
 export const viewport: Viewport = {
   themeColor: [
@@ -62,27 +80,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${fontSans.variable} ${fontDisplay.variable} scroll-smooth`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
       </head>
-      <body className="min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-white"
+      >
         <ThemeProvider>
           <AuthProvider>
             <CurrencyProvider>
               <CompareProvider>
                 <NotificationProvider>
-                  <Navbar />
-                  <main className="flex-1">{children}</main>
-                  <Footer />
-                  <MobileNav />
-                  <NotificationDrawer />
-                  <AiAssistantModal />
+                  <ToastProvider>
+                    <Navbar />
+                    <main className="flex-1">{children}</main>
+                    <Footer />
+                    <MobileNav />
+                    <NotificationDrawer />
+                    <AiAssistantModal />
+                    <ToastContainer />
+                  </ToastProvider>
                 </NotificationProvider>
               </CompareProvider>
             </CurrencyProvider>

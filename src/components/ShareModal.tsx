@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { PropertyListing } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
+import { useToast } from '@/context/ToastContext';
 import { X, Copy, Check, MessageCircle, Twitter, Facebook, Linkedin, QrCode } from 'lucide-react';
 
 interface ShareModalProps {
@@ -13,6 +14,7 @@ interface ShareModalProps {
 
 export function ShareModal({ listing, isOpen, onClose }: ShareModalProps) {
   const { formatPrice } = useCurrency();
+  const { showToast } = useToast();
   const [copied, setCopied] = useState(false);
   const [showQr, setShowQr] = useState(false);
 
@@ -24,6 +26,11 @@ export function ShareModal({ listing, isOpen, onClose }: ShareModalProps) {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(currentUrl);
     setCopied(true);
+    showToast({
+      type: 'success',
+      title: 'Link Copied to Clipboard',
+      message: 'Share URL ready to paste.',
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 

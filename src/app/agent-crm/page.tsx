@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { SEED_LEADS } from '@/lib/seedData';
 import { CRMLead } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
+import { useToast } from '@/context/ToastContext';
+import { exportToCSV } from '@/lib/exportCsv';
 import {
   Users,
   Kanban,
@@ -19,12 +21,31 @@ import {
   TrendingUp,
   ShieldCheck,
   Building,
+  Download,
 } from 'lucide-react';
 
 export default function AgentCrmPage() {
   const { formatPrice } = useCurrency();
+  const { showToast } = useToast();
   const [leads, setLeads] = useState<CRMLead[]>(SEED_LEADS);
   const [selectedLead, setSelectedLead] = useState<CRMLead | null>(null);
+
+  const handleExportLeads = () => {
+    exportToCSV(leads, `leads-pipeline-${new Date().toISOString().split('T')[0]}.csv`, [
+      { key: 'clientName', header: 'Client Name' },
+      { key: 'clientPhone', header: 'Phone' },
+      { key: 'clientEmail', header: 'Email' },
+      { key: 'budget', header: 'Budget (INR)' },
+      { key: 'stage', header: 'Pipeline Stage' },
+      { key: 'score', header: 'Lead Score' },
+      { key: 'propertyInterest', header: 'Property Interest' },
+    ]);
+    showToast({
+      type: 'success',
+      title: 'CSV Pipeline Exported',
+      message: `${leads.length} active leads downloaded to CSV file.`,
+    });
+  };
 
   const stages: CRMLead['stage'][] = [
     'New',
@@ -64,6 +85,15 @@ export default function AgentCrmPage() {
 
           <div className="flex items-center gap-2">
             <button
+              onClick={handleExportLeads}
+              className="px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all inline-flex items-center gap-1.5 shadow-sm"
+              title="Download RFC 4180 CSV export of pipeline leads"
+            >
+              <Download className="w-4 h-4 text-emerald-600" />
+              <span>Export CSV</span>
+            </button>
+
+            <button
               onClick={() => {
                 const name = prompt('Client Name:');
                 if (!name) return;
@@ -81,6 +111,11 @@ export default function AgentCrmPage() {
                   notes: ['Initial client requirement recorded'],
                 };
                 setLeads([newLead, ...leads]);
+                showToast({
+                  type: 'success',
+                  title: 'New Lead Added',
+                  message: `${name} has been enrolled in your pipeline.`,
+                });
               }}
               className="px-4 py-2.5 rounded-2xl bg-emerald-600 text-white text-xs font-bold hover:shadow-glow transition-all inline-flex items-center gap-1.5"
             >

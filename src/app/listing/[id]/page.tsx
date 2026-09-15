@@ -8,13 +8,36 @@ import { PropertyListing } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
 import { useCompare } from '@/context/CompareContext';
 import { calculateEMI, calculateStampDuty } from '@/lib/utils';
-import { VirtualTour360 } from '@/components/VirtualTour360';
-import { MapView } from '@/components/MapView';
+import dynamic from 'next/dynamic';
+import { useToast } from '@/context/ToastContext';
 import { ScheduleVisitModal } from '@/components/ScheduleVisitModal';
 import { MakeOfferModal } from '@/components/MakeOfferModal';
 import { ShareModal } from '@/components/ShareModal';
 import { ReportModal } from '@/components/ReportModal';
 import { ListingCard } from '@/components/ListingCard';
+
+const VirtualTour360 = dynamic(
+  () => import('@/components/VirtualTour360').then((mod) => mod.VirtualTour360),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] w-full flex flex-col items-center justify-center bg-slate-900 rounded-3xl animate-pulse text-white">
+        <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-3" />
+        <span className="text-xs font-bold">Initializing 360° Panorama Tour Canvas...</span>
+      </div>
+    ),
+  }
+);
+
+const MapView = dynamic(() => import('@/components/MapView').then((mod) => mod.MapView), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[350px] w-full flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900 rounded-3xl animate-pulse text-slate-500 border border-slate-200 dark:border-slate-800">
+      <div className="w-10 h-10 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mb-3" />
+      <span className="text-xs font-bold">Loading Locality Infrastructure Map...</span>
+    </div>
+  ),
+});
 import {
   Bed,
   Bath,
@@ -39,6 +62,8 @@ import {
   Car,
   Train,
   Sparkles,
+  Printer,
+  Calculator,
 } from 'lucide-react';
 
 export default function ListingDetailPage() {
@@ -47,8 +72,11 @@ export default function ListingDetailPage() {
   const listingId = params.id as string;
   const { formatPrice, formatPropertyArea } = useCurrency();
   const { isInCompare, addToCompare, removeFromCompare } = useCompare();
+  const { showToast } = useToast();
 
-  const [listing, setListing] = useState<PropertyListing | null>(null);
+  const [listing, setListing] = useState<PropertyListing>(
+    () => SEED_PROPERTIES.find((p) => p.id === listingId) || SEED_PROPERTIES[0]
+  );
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<'overview' | 'tour360' | 'floorplan' | 'map' | 'valuation'>('overview');
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
@@ -61,28 +89,58 @@ export default function ListingDetailPage() {
   const [commuteDestination, setCommuteDestination] = useState('Indiranagar Metro Station');
   const [commuteMode, setCommuteMode] = useState<'car' | 'transit' | 'bike' | 'walk'>('car');
 
+  // Interactive In-Page Loan Calculator state
+  const [downPaymentPct, setDownPaymentPct] = useState(20);
+  const [loanTenureYears, setLoanTenureYears] = useState(20);
+
   useEffect(() => {
     const found = SEED_PROPERTIES.find((p) => p.id === listingId);
     if (found) {
       setListing(found);
-    } else {
-      setListing(SEED_PROPERTIES[0]);
     }
   }, [listingId]);
-
-  if (!listing) {
-    return (
-      <div className="py-32 text-center">
-        <div className="animate-spin w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full mx-auto" />
-        <p className="text-xs text-slate-500 mt-2">Loading property specifications...</p>
-      </div>
-    );
-  }
 
   const inCompare = isInCompare(listing.id);
   const emiInfo = calculateEMI(Math.round(listing.price * 0.8), 8.5, 20);
   const stampDutyInfo = calculateStampDuty(listing.price, listing.location.state, 'male');
   const pricePerSqFt = Math.round(listing.price / listing.indiaDetails.carpetAreaSqFt);
+  const loanPrincipal = Math.round(listing.price * (1 - downPaymentPct / 100));
+  const dynamicEmiInfo = calculateEMI(loanPrincipal, 8.5, loanTenureYears);
+
+  const handlePrintBrochure = () => {
+    showToast({
+      type: 'info',
+      title: 'Preparing PDF Flyer',
+      message: 'Opening print dialog. Select "Save as PDF" to generate your high-res brochure.',
+    });
+    setTimeout(() => {
+      window.print();
+    }, 300);
+  };
+
+  const handleToggleSave = () => {
+    const next = !isSaved;
+    setIsSaved(next);
+    showToast({
+      type: next ? 'success' : 'info',
+      title: next ? 'Saved to Favorites' : 'Removed from Favorites',
+      message: next ? `${listing.title} added to your saved collection.` : undefined,
+    });
+  };
+
+  const handleToggleCompare = () => {
+    if (inCompare) {
+      removeFromCompare(listing.id);
+      showToast({ type: 'info', title: 'Removed from Compare' });
+    } else {
+      addToCompare(listing);
+      showToast({
+        type: 'success',
+        title: 'Added to Compare Matrix',
+        message: 'You can compare up to 4 properties side-by-side.',
+      });
+    }
+  };
 
   const similarListings = SEED_PROPERTIES.filter(
     (p) => p.id !== listing.id && (p.location.city === listing.location.city || p.purpose === listing.purpose)
@@ -142,10 +200,7 @@ export default function ListingDetailPage() {
           {/* Action buttons */}
           <div className="flex items-center gap-2 shrink-0">
             <button
-              onClick={() => {
-                if (inCompare) removeFromCompare(listing.id);
-                else addToCompare(listing);
-              }}
+              onClick={handleToggleCompare}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition-colors ${
                 inCompare
                   ? 'bg-emerald-600 border-emerald-600 text-white'
@@ -157,7 +212,7 @@ export default function ListingDetailPage() {
             </button>
 
             <button
-              onClick={() => setIsSaved(!isSaved)}
+              onClick={handleToggleSave}
               className={`p-2 rounded-xl border transition-colors ${
                 isSaved
                   ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 text-rose-600'
@@ -174,6 +229,15 @@ export default function ListingDetailPage() {
               title="Share listing"
             >
               <Share2 className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={handlePrintBrochure}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-bold transition-colors"
+              title="Print or download PDF brochure"
+            >
+              <Printer className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Brochure</span>
             </button>
 
             <button
@@ -511,6 +575,53 @@ export default function ListingDetailPage() {
                 </div>
               </div>
 
+              {/* Quick Interactive Loan Slider */}
+              <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/40 text-xs space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <Calculator className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Quick EMI Estimator</span>
+                  </span>
+                  <span className="font-black text-emerald-600 dark:text-emerald-400 font-mono text-xs">
+                    {formatPrice(dynamicEmiInfo.monthlyEMI)}/mo
+                  </span>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[11px] text-slate-500">
+                    <span>Down Payment ({downPaymentPct}%):</span>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">
+                      {formatPrice(Math.round(listing.price * (downPaymentPct / 100)))}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="10"
+                    max="50"
+                    step="5"
+                    value={downPaymentPct}
+                    onChange={(e) => setDownPaymentPct(Number(e.target.value))}
+                    className="w-full accent-emerald-600 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[11px] text-slate-500">
+                    <span>Tenure:</span>
+                    <span className="font-semibold text-slate-700 dark:text-slate-300">{loanTenureYears} Years</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5"
+                    max="30"
+                    step="5"
+                    value={loanTenureYears}
+                    onChange={(e) => setLoanTenureYears(Number(e.target.value))}
+                    className="w-full accent-emerald-600 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer"
+                  />
+                </div>
+              </div>
+
               {/* Action Buttons */}
               <div className="space-y-2.5 pt-1">
                 <button
@@ -591,6 +702,32 @@ export default function ListingDetailPage() {
             ))}
           </div>
         </section>
+      </div>
+
+      {/* Sticky Mobile Floating Action Bar (Airbnb / Zillow pattern) */}
+      <div className="md:hidden fixed bottom-[58px] left-0 right-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 p-3 px-4 flex items-center justify-between shadow-2xl">
+        <div>
+          <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+            {listing.purpose === 'rent' ? 'Rent / Month' : 'Price'}
+          </span>
+          <div className="text-base font-black text-slate-900 dark:text-white leading-tight">
+            {formatPrice(listing.price)}
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsScheduleModalOpen(true)}
+            className="py-2.5 px-3.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white text-xs font-bold hover:bg-slate-200 active:scale-95 transition-all"
+          >
+            Tour
+          </button>
+          <button
+            onClick={() => setIsOfferModalOpen(true)}
+            className="py-2.5 px-4 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 shadow-md shadow-emerald-600/30 active:scale-95 transition-all"
+          >
+            Make Offer
+          </button>
+        </div>
       </div>
 
       {/* Modals */}

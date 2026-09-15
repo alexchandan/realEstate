@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { PropertyListing } from '@/lib/types';
 import { useNotifications } from '@/context/NotificationContext';
+import { useToast } from '@/context/ToastContext';
 import { X, Calendar, Clock, Video, MapPin, CheckCircle2, User, Phone, Mail } from 'lucide-react';
 
 interface ScheduleVisitModalProps {
@@ -13,6 +14,7 @@ interface ScheduleVisitModalProps {
 
 export function ScheduleVisitModal({ listing, isOpen, onClose }: ScheduleVisitModalProps) {
   const { addNotification } = useNotifications();
+  const { showToast } = useToast();
   const [mode, setMode] = useState<'in-person' | 'virtual'>('in-person');
   const [date, setDate] = useState('2025-03-15');
   const [timeSlot, setTimeSlot] = useState('11:00 AM - 12:00 PM');
@@ -36,10 +38,16 @@ export function ScheduleVisitModal({ listing, isOpen, onClose }: ScheduleVisitMo
       link: `/listing/${listing.id}`,
     });
 
+    showToast({
+      type: 'success',
+      title: 'Tour Confirmed with Agent',
+      message: `${mode === 'virtual' ? 'Live Video Tour' : 'Site Walkthrough'} scheduled for ${date} (${timeSlot}).`,
+    });
+
     setTimeout(() => {
       setIsSuccess(false);
       onClose();
-    }, 2500);
+    }, 2000);
   };
 
   const slots = [

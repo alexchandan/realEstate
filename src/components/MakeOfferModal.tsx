@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { PropertyListing } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
 import { useNotifications } from '@/context/NotificationContext';
+import { useToast } from '@/context/ToastContext';
 import { X, Tag, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface MakeOfferModalProps {
@@ -15,6 +16,7 @@ interface MakeOfferModalProps {
 export function MakeOfferModal({ listing, isOpen, onClose }: MakeOfferModalProps) {
   const { formatPrice } = useCurrency();
   const { addNotification } = useNotifications();
+  const { showToast } = useToast();
 
   const [offerPrice, setOfferPrice] = useState<number>(Math.round(listing.price * 0.95));
   const [tokenDeposit, setTokenDeposit] = useState<number>(Math.round(listing.price * 0.02));
@@ -38,10 +40,16 @@ export function MakeOfferModal({ listing, isOpen, onClose }: MakeOfferModalProps
       link: '/dashboard',
     });
 
+    showToast({
+      type: 'success',
+      title: 'Offer Submitted to Seller',
+      message: `Dispatched binding offer of ${formatPrice(offerPrice)} with escrow token deposit.`,
+    });
+
     setTimeout(() => {
       setIsSuccess(false);
       onClose();
-    }, 2500);
+    }, 2000);
   };
 
   const discountPercent = (((listing.price - offerPrice) / listing.price) * 100).toFixed(1);

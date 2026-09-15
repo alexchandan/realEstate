@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { SEED_PROPERTIES, SEED_USERS } from '@/lib/seedData';
 import { PropertyListing, UserProfile, AuditLogEntry } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
+import { useToast } from '@/context/ToastContext';
+import { exportToCSV } from '@/lib/exportCsv';
 import {
   ShieldCheck,
   Users,
@@ -17,10 +19,12 @@ import {
   Check,
   X,
   Lock,
+  Download,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
   const { formatPrice } = useCurrency();
+  const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState<'moderation' | 'users' | 'reports' | 'audit_logs'>('moderation');
 
   const [listings, setListings] = useState<PropertyListing[]>(SEED_PROPERTIES);
@@ -70,7 +74,11 @@ export default function AdminDashboardPage() {
       timestamp: 'Just now',
     };
     setAuditLogs([newLog, ...auditLogs]);
-    alert(`Listing ${listingId} approved and published!`);
+    showToast({
+      type: 'success',
+      title: 'Listing Approved & Published',
+      message: `Listing ${listingId} is verified and visible to all buyers.`,
+    });
   };
 
   const handleReject = (listingId: string) => {
@@ -91,7 +99,29 @@ export default function AdminDashboardPage() {
       timestamp: 'Just now',
     };
     setAuditLogs([newLog, ...auditLogs]);
-    alert(`Listing ${listingId} rejected.`);
+    showToast({
+      type: 'warning',
+      title: 'Listing Rejected',
+      message: `Reason: ${reason}`,
+    });
+  };
+
+  const handleExportAuditTrail = () => {
+    exportToCSV(auditLogs, `audit-trail-${new Date().toISOString().split('T')[0]}.csv`, [
+      { key: 'timestamp', header: 'Timestamp' },
+      { key: 'actorName', header: 'Actor Name' },
+      { key: 'actorRole', header: 'Role' },
+      { key: 'action', header: 'Action' },
+      { key: 'entityType', header: 'Entity Type' },
+      { key: 'entityId', header: 'Entity ID' },
+      { key: 'previousValue', header: 'Previous Value' },
+      { key: 'newValue', header: 'New Value' },
+    ]);
+    showToast({
+      type: 'success',
+      title: 'Audit Logs Exported',
+      message: `${auditLogs.length} immutable compliance records downloaded.`,
+    });
   };
 
   const handleToggleUserVerification = (userId: string) => {
@@ -104,17 +134,30 @@ export default function AdminDashboardPage() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8 space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300 text-xs font-bold">
-            <Lock className="w-3.5 h-3.5" />
-            <span>Executive Platform Governance</span>
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300 text-xs font-bold">
+              <Lock className="w-3.5 h-3.5" />
+              <span>Executive Platform Governance</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Super Admin & Moderation Queue
+            </h1>
+            <p className="text-xs text-slate-500">
+              Audit property listings, verify agent identities, process user reports, and inspect system audit logs.
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-            Super Admin & Moderation Queue
-          </h1>
-          <p className="text-xs text-slate-500">
-            Audit property listings, verify agent identities, process user reports, and inspect system audit logs.
-          </p>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleExportAuditTrail}
+              className="px-3.5 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all inline-flex items-center gap-1.5 shadow-sm"
+              title="Download RFC 4180 CSV export of platform audit trail"
+            >
+              <Download className="w-4 h-4 text-emerald-600" />
+              <span>Export Audit Trail</span>
+            </button>
+          </div>
         </div>
 
         {/* Platform KPIs */}
