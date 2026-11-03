@@ -626,18 +626,18 @@ export default function ListingDetailPage() {
               <div className="space-y-2.5 pt-1">
                 <button
                   onClick={() => setIsScheduleModalOpen(true)}
-                  className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-glow transition-all"
+                  className="w-full py-3 rounded-lg bg-stone-900 dark:bg-white hover:bg-stone-800 dark:hover:bg-stone-100 text-white dark:text-stone-900 text-xs font-bold flex items-center justify-center gap-2 shadow-sm transition-colors"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Schedule Site Visit</span>
+                  <span>Schedule Private Inspection</span>
                 </button>
 
                 <button
                   onClick={() => setIsOfferModalOpen(true)}
-                  className="w-full py-3.5 rounded-2xl border-2 border-emerald-600 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-xs font-bold flex items-center justify-center gap-2 transition-all"
+                  className="w-full py-3 rounded-lg border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-white hover:bg-stone-50 dark:hover:bg-stone-800 text-xs font-bold flex items-center justify-center gap-2 transition-colors"
                 >
                   <Tag className="w-4 h-4" />
-                  <span>Make an Offer</span>
+                  <span>Submit Formal Offer</span>
                 </button>
               </div>
 

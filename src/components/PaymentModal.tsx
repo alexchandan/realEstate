@@ -271,7 +271,7 @@ export function PaymentModal({
             <button
               type="submit"
               disabled={isProcessing}
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold hover:shadow-glow transition-all disabled:opacity-50"
+              className="w-full py-3 rounded-lg bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-bold hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors shadow-sm disabled:opacity-50"
             >
               {isProcessing ? 'Processing Secure Payment...' : `Pay ${formatPrice(priceInINR)}`}
             </button>

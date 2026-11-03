@@ -176,7 +176,7 @@ export function MakeOfferModal({ listing, isOpen, onClose }: MakeOfferModalProps
 
             <button
               type="submit"
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold hover:shadow-glow transition-all"
+              className="w-full py-3 rounded-lg bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-bold hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors shadow-sm"
             >
               Transcribe & Submit Offer
             </button>

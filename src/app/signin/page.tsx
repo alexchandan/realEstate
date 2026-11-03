@@ -29,23 +29,23 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-160px)] flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950">
-      <div className="w-full max-w-md p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6 text-xs animate-slide-up">
+    <div className="min-h-[calc(100vh-160px)] flex items-center justify-center p-4 bg-stone-50 dark:bg-stone-950">
+      <div className="w-full max-w-md p-8 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-elevation-card space-y-6 text-xs animate-slide-up">
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center shadow-glow">
-            <Building2 className="w-6 h-6" />
+          <div className="w-10 h-10 mx-auto rounded-lg bg-brand-900 dark:bg-white text-white dark:text-stone-900 flex items-center justify-center shadow-sm">
+            <Building2 className="w-5 h-5" />
           </div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-            Welcome Back to Brickly
+          <h1 className="text-2xl font-black text-stone-900 dark:text-white tracking-tight font-display">
+            Sign In to Brickly
           </h1>
-          <p className="text-slate-500">Sign in to manage your listings, tours, and offers.</p>
+          <p className="text-stone-500 font-normal">Manage verified portfolios, private inspections, and offer records.</p>
         </div>
 
         {/* Google OAuth Simulation Button */}
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="w-full py-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors shadow-sm"
+          className="w-full py-2.5 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-850 text-stone-700 dark:text-stone-200 font-semibold flex items-center justify-center gap-2 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors shadow-sm"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -65,41 +65,41 @@ export default function SignInPage() {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
             />
           </svg>
-          <span>Continue with Google</span>
+          <span>Continue with Google Workspace</span>
         </button>
 
-        <div className="relative flex items-center justify-center">
-          <div className="border-t border-slate-200 dark:border-slate-800 w-full" />
-          <span className="bg-white dark:bg-slate-900 px-3 text-slate-400 text-[11px] uppercase tracking-wider absolute">
-            Or sign in with email
-          </span>
+        <div className="flex items-center gap-3 text-stone-400">
+          <div className="flex-1 h-px bg-stone-200 dark:bg-stone-800" />
+          <span className="text-[10px] uppercase font-bold tracking-wider">Or Credentials</span>
+          <div className="flex-1 h-px bg-stone-200 dark:bg-stone-800" />
         </div>
 
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Email Address</label>
-            <div className="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800">
-              <Mail className="w-4 h-4 text-slate-400" />
+            <label className="font-semibold text-stone-700 dark:text-stone-300 mb-1 block">Email Address</label>
+            <div className="flex items-center gap-2 p-2.5 rounded-lg border border-stone-200 dark:border-stone-750 bg-stone-50 dark:bg-stone-850">
+              <Mail className="w-4 h-4 text-stone-400" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent border-none text-xs text-slate-900 dark:text-white focus:outline-none"
+                className="w-full bg-transparent border-none text-xs text-stone-900 dark:text-white focus:outline-none"
               />
             </div>
           </div>
 
           <div>
-            <label className="font-bold text-slate-700 dark:text-slate-300 mb-1 block">Password</label>
-            <div className="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800">
-              <Lock className="w-4 h-4 text-slate-400" />
+            <label className="font-semibold text-stone-700 dark:text-stone-300 mb-1 block">Password</label>
+            <div className="flex items-center gap-2 p-2.5 rounded-lg border border-stone-200 dark:border-stone-750 bg-stone-50 dark:bg-stone-850">
+              <Lock className="w-4 h-4 text-stone-400" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent border-none text-xs text-slate-900 dark:text-white focus:outline-none"
+                className="w-full bg-transparent border-none text-xs text-stone-900 dark:text-white focus:outline-none"
               />
             </div>
           </div>
@@ -107,17 +107,17 @@ export default function SignInPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold hover:shadow-glow transition-all flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-lg bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-bold hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors flex items-center justify-center gap-2 shadow-sm"
           >
             <span>{isLoading ? 'Signing In...' : 'Sign In to Account'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <p className="text-center text-slate-500 text-xs">
+        <p className="text-center text-stone-500 text-xs">
           Don&apos;t have an account?{' '}
-          <Link href="/signup" className="font-bold text-emerald-600 hover:underline">
-            Sign up now
+          <Link href="/signup" className="font-bold text-stone-900 dark:text-white hover:underline">
+            Register for access
           </Link>
         </p>
       </div>

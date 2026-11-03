@@ -70,7 +70,7 @@ export default function ComparePage() {
             </p>
             <Link
               href="/search"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-emerald-600 text-white text-xs font-bold hover:shadow-glow transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-stone-900 dark:bg-white text-white dark:text-stone-900 text-xs font-bold hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors"
             >
               <span>Explore Listings</span>
               <ArrowRight className="w-4 h-4" />

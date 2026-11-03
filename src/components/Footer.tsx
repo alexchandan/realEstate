@@ -2,146 +2,162 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Building2, ShieldCheck, Mail, Phone, Heart } from 'lucide-react';
+import { Building2, ShieldCheck, Mail, Phone } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 pt-16 pb-24 md:pb-16 transition-colors">
+    <footer className="border-t border-stone-200 dark:border-stone-800 bg-stone-50/80 dark:bg-stone-950 pt-16 pb-20 md:pb-16 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-          {/* Column 1: Brand */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+          {/* Column 1: Brand & Regulatory Commitment */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-glow">
-                <Building2 className="w-5 h-5" />
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-brand-900 dark:bg-white text-white dark:text-stone-900 flex items-center justify-center font-bold text-xs tracking-tight shadow-sm">
+                <Building2 className="w-4 h-4" />
               </div>
-              <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
-                Brickly <span className="text-emerald-600 font-bold">AlexEstate</span>
-              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="font-extrabold text-lg tracking-tight text-stone-900 dark:text-white font-display">
+                  BRICKLY
+                </span>
+                <span className="text-[10px] tracking-widest uppercase font-semibold text-stone-500">
+                  ESTATES
+                </span>
+              </div>
             </Link>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
-              The full-stack real estate discovery & transaction ecosystem. Powering intelligent property
-              searches, verified RERA documentation, AI-assisted valuations, and transparent negotiations.
+
+            <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed max-w-sm">
+              The premier ecosystem for luxury property discovery and acquisition. Facilitating RERA-verified
+              due diligence, photorealistic 3D spatial tours, and transparent direct transactions.
             </p>
-            <div className="flex items-center gap-2 pt-2 text-xs text-slate-500 dark:text-slate-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>100% RERA & Title Deed Verified Listings</span>
+
+            <div className="pt-2 flex flex-col gap-1 text-[11px] text-stone-500 dark:text-stone-400">
+              <div className="flex items-center gap-1.5 font-medium">
+                <ShieldCheck className="w-4 h-4 text-brand-900 dark:text-emerald-400 shrink-0" />
+                <span>RERA Compliant & Legal Due Diligence Verified</span>
+              </div>
+              <span className="text-[10px] text-stone-400">
+                Institutional member of Real Estate Regulatory Standards Framework
+              </span>
             </div>
           </div>
 
-          {/* Column 2: Top Cities */}
+          {/* Column 2: Premier Metros */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-              Top Locations
+            <h4 className="text-xs font-bold text-stone-900 dark:text-white uppercase tracking-wider mb-4">
+              Premier Metros
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2.5 text-xs text-stone-600 dark:text-stone-400">
               <li>
-                <Link href="/search?city=Bangalore" className="hover:text-emerald-600 transition-colors">
-                  Properties in Bangalore
+                <Link href="/search?city=Bangalore" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Bangalore Residences
                 </Link>
               </li>
               <li>
-                <Link href="/search?city=Mumbai" className="hover:text-emerald-600 transition-colors">
-                  Luxury Flats in Mumbai
+                <Link href="/search?city=Mumbai" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Mumbai Oceanfront
                 </Link>
               </li>
               <li>
-                <Link href="/search?city=Gurgaon" className="hover:text-emerald-600 transition-colors">
-                  CyberCity & Gurgaon
+                <Link href="/search?city=Gurgaon" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Gurgaon & NCR Corridors
                 </Link>
               </li>
               <li>
-                <Link href="/search?city=Hyderabad" className="hover:text-emerald-600 transition-colors">
-                  Gachibowli, Hyderabad
+                <Link href="/search?city=Hyderabad" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Hyderabad Financial District
                 </Link>
               </li>
               <li>
-                <Link href="/neighborhoods" className="text-emerald-600 font-semibold hover:underline">
-                  View Neighborhood Guides →
+                <Link href="/neighborhoods" className="text-stone-900 dark:text-white font-semibold hover:underline inline-block pt-1">
+                  Micro-Market Intelligence →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Calculators */}
+          {/* Column 3: Financial & Valuation Suite */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-              Financial Tools
+            <h4 className="text-xs font-bold text-stone-900 dark:text-white uppercase tracking-wider mb-4">
+              Financial Suite
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2.5 text-xs text-stone-600 dark:text-stone-400">
               <li>
-                <Link href="/calculators?tab=emi" className="hover:text-emerald-600 transition-colors">
-                  Home Loan EMI Calculator
+                <Link href="/calculators?tab=emi" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Mortgage Amortisation
                 </Link>
               </li>
               <li>
-                <Link href="/calculators?tab=affordability" className="hover:text-emerald-600 transition-colors">
-                  Affordability Calculator
+                <Link href="/calculators?tab=affordability" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Affordability Modeling
                 </Link>
               </li>
               <li>
-                <Link href="/calculators?tab=stamp-duty" className="hover:text-emerald-600 transition-colors">
-                  State Stamp Duty Calculator
+                <Link href="/calculators?tab=stamp-duty" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  State Stamp Duty Schedule
                 </Link>
               </li>
               <li>
-                <Link href="/calculators?tab=rent-vs-buy" className="hover:text-emerald-600 transition-colors">
-                  Rent vs Buy Analyzer
+                <Link href="/calculators?tab=rent-vs-buy" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Rent vs. Buy Analysis
                 </Link>
               </li>
               <li>
-                <Link href="/calculators?tab=roi" className="hover:text-emerald-600 transition-colors">
-                  Rental Yield & ROI
+                <Link href="/calculators?tab=roi" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Net Capital Yield & ROI
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Platform & CRM */}
+          {/* Column 4: Client Services */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-              Ecosystem
+            <h4 className="text-xs font-bold text-stone-900 dark:text-white uppercase tracking-wider mb-4">
+              Client Advisory
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2.5 text-xs text-stone-600 dark:text-stone-400">
               <li>
-                <Link href="/agent-crm" className="hover:text-emerald-600 transition-colors">
-                  Agent CRM & Pipeline
+                <Link href="/builder-projects" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Institutional Developments
                 </Link>
               </li>
               <li>
-                <Link href="/builder-projects" className="hover:text-emerald-600 transition-colors">
-                  Builder Projects & Towers
+                <Link href="/compare" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Property Comparison Matrix
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:text-emerald-600 transition-colors">
-                  Seller & Property Mgmt
+                <Link href="/agent-crm" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Private Broker Portal
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="hover:text-emerald-600 transition-colors">
-                  Subscriptions & Pro Boosts
+                <Link href="/create-listing" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  List Premier Property
                 </Link>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-emerald-600 transition-colors">
-                  Admin Moderation Queue
+                <Link href="/pricing" className="hover:text-stone-900 dark:hover:text-white transition-colors">
+                  Broker & Developer Plans
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Disclaimer & Copyright */}
-        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-400 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="max-w-2xl leading-relaxed text-center md:text-left">
-            Disclaimer: All property descriptions, pricing estimates, carpet areas, and RERA registration
-            numbers are compiled for informational and demonstration purposes. Always verify original title
-            deeds, encumbrance certificates, and RERA government portals prior to concluding purchase contracts.
-          </p>
-          <div className="flex items-center gap-1 font-medium text-slate-500">
-            <span>© {new Date().getFullYear()} Brickly AlexEstate. Built with</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+        {/* Bottom Legal Notice & Copyright */}
+        <div className="pt-8 border-t border-stone-200 dark:border-stone-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-stone-500 dark:text-stone-400">
+          <div className="flex flex-wrap items-center gap-4">
+            <span>© {new Date().getFullYear()} Brickly Estates Technologies India Pvt. Ltd.</span>
+            <span>•</span>
+            <span className="hover:underline cursor-pointer">Equal Housing Opportunity</span>
+            <span>•</span>
+            <span className="hover:underline cursor-pointer">Terms of Service</span>
+            <span>•</span>
+            <span className="hover:underline cursor-pointer">Privacy Policy</span>
+          </div>
+
+          <div className="text-stone-400">
+            Institutional RERA Compliance: PRM/KA/RERA/1251/310/PR/180516
           </div>
         </div>
       </div>

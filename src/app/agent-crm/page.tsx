@@ -117,7 +117,7 @@ export default function AgentCrmPage() {
                   message: `${name} has been enrolled in your pipeline.`,
                 });
               }}
-              className="px-4 py-2.5 rounded-2xl bg-emerald-600 text-white text-xs font-bold hover:shadow-glow transition-all inline-flex items-center gap-1.5"
+              className="px-4 py-2.5 rounded-lg bg-stone-900 dark:bg-white text-white dark:text-stone-900 text-xs font-bold hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors inline-flex items-center gap-1.5"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Add Deal Lead</span>

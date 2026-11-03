@@ -505,7 +505,7 @@ export default function CreateListingPage() {
               type="button"
               onClick={() => handleSubmit('PENDING_REVIEW')}
               disabled={isSubmitting}
-              className="w-full sm:w-auto px-7 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold shadow-glow hover:opacity-95 transition-all"
+              className="w-full sm:w-auto px-7 py-3 rounded-lg bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-bold hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors shadow-sm"
             >
               {isSubmitting ? 'Validating Listing...' : 'Submit for Verification & Publication'}
             </button>

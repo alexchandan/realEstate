@@ -152,10 +152,10 @@ export default function NeighborhoodsPage() {
             <button
               key={city}
               onClick={() => setSelectedCity(city)}
-              className={`px-4 py-2 rounded-2xl transition-all ${
+              className={`px-3.5 py-1.5 rounded-lg transition-colors ${
                 selectedCity === city
-                  ? 'bg-emerald-600 text-white shadow-glow'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'
+                  ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 font-bold shadow-sm'
+                  : 'bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-800'
               }`}
             >
               {city}

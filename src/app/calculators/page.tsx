@@ -96,8 +96,8 @@ export default function CalculatorsPage() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl whitespace-nowrap transition-all ${
                   isActive
-                    ? 'bg-emerald-600 text-white shadow-glow'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'
+                    ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-sm font-bold'
+                    : 'bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-800 hover:bg-stone-100 dark:hover:bg-stone-850'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />

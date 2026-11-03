@@ -132,8 +132,8 @@ export default function PricingPage() {
                   }
                   className={`w-full py-3.5 rounded-2xl font-bold text-xs transition-all ${
                     plan.isPopular
-                      ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-glow'
-                      : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'
+                      ? 'bg-brand-900 text-white hover:bg-brand-850 dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100 shadow-sm'
+                      : 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 hover:opacity-90'
                   }`}
                 >
                   {plan.price === 0 ? 'Current Free Tier' : 'Upgrade Plan'}
