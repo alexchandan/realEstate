@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { PropertyListing } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
 import { useToast } from '@/context/ToastContext';
-import { X, Copy, Check, MessageCircle, Twitter, Facebook, Linkedin, QrCode } from 'lucide-react';
+import { X, Copy, Check, MessageCircle, Twitter, Linkedin, QrCode } from 'lucide-react';
 
 interface ShareModalProps {
   listing: PropertyListing | null;

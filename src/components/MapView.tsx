@@ -8,10 +8,8 @@ import {
   Train,
   GraduationCap,
   Hospital,
-  ShoppingBag,
   Wind,
   Layers,
-  Search,
   ExternalLink,
   X,
 } from 'lucide-react';

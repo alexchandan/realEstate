@@ -3,7 +3,6 @@
  * Validates inputs for listings, offers, visits, reviews, and CRM leads.
  */
 
-import { sanitizeString } from './security';
 
 export interface ValidationResult {
   valid: boolean;

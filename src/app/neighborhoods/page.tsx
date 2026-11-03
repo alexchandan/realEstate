@@ -4,16 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   Compass,
-  TrendingUp,
   Train,
-  GraduationCap,
-  Hospital,
-  TreePine,
   Wind,
   Shield,
   ArrowRight,
-  MapPin,
-  Building,
 } from 'lucide-react';
 
 interface LocalityData {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { RotateCw, ZoomIn, ZoomOut, Maximize2, Minimize2, Compass } from 'lucide-react';
 
 interface VirtualTour360Props {
@@ -61,6 +61,7 @@ export function VirtualTour360({
   return (
     <div
       ref={containerRef}
+      aria-label={`360 Virtual Tour for ${propertyTitle}`}
       className={`relative w-full overflow-hidden rounded-2xl bg-black select-none ${
         isFullscreen ? 'h-screen' : 'h-[360px] sm:h-[480px]'
       }`}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useCurrency, SupportedCurrency, SupportedUnit } from '@/context/CurrencyContext';
+import { useCurrency, SupportedCurrency } from '@/context/CurrencyContext';
 import { Globe, ChevronDown } from 'lucide-react';
 
 export function CurrencyUnitToggle() {

@@ -7,15 +7,6 @@ import { useCurrency } from '@/context/CurrencyContext';
 import { useToast } from '@/context/ToastContext';
 import { exportToCSV } from '@/lib/exportCsv';
 import {
-  ShieldCheck,
-  Users,
-  Building2,
-  AlertTriangle,
-  FileCheck,
-  CheckCircle,
-  XCircle,
-  Clock,
-  Search,
   Check,
   X,
   Lock,

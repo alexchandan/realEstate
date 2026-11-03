@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { apiSuccess, apiError } from '@/lib/security';
 import { SEED_PROPERTIES } from '@/lib/seedData';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const totalListings = SEED_PROPERTIES.length;
     const totalGtv = SEED_PROPERTIES.reduce((acc, p) => acc + p.price, 0);

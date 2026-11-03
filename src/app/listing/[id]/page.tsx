@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { SEED_PROPERTIES } from '@/lib/seedData';
 import { PropertyListing } from '@/lib/types';
@@ -39,9 +39,6 @@ const MapView = dynamic(() => import('@/components/MapView').then((mod) => mod.M
   ),
 });
 import {
-  Bed,
-  Bath,
-  Maximize2,
   MapPin,
   ShieldCheck,
   Calendar,
@@ -51,24 +48,19 @@ import {
   Scale,
   Phone,
   MessageCircle,
-  Mail,
-  Download,
   AlertTriangle,
   RotateCw,
   Compass,
   CheckCircle2,
-  Clock,
   TrendingUp,
   Car,
   Train,
-  Sparkles,
   Printer,
   Calculator,
 } from 'lucide-react';
 
 export default function ListingDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const listingId = params.id as string;
   const { formatPrice, formatPropertyArea } = useCurrency();
   const { isInCompare, addToCompare, removeFromCompare } = useCompare();

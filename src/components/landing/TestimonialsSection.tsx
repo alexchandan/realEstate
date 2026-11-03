@@ -9,7 +9,14 @@ interface TestimonialsSectionProps {
 }
 
 export function TestimonialsSection({ reviews }: TestimonialsSectionProps) {
-  const testimonials = [
+  const testimonials = reviews && reviews.length > 0
+    ? reviews.slice(0, 3).map((r, i) => ({
+        authorName: r.authorName,
+        role: ['Acquired 3 BHK Sky Suite • Indiranagar, Bangalore', 'NRI Relocation from London • Sarjapur Villa', 'Private Investor • Oceanfront Residence, Worli Mumbai'][i] || 'Verified Client',
+        avatar: r.authorAvatar || 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+        comment: r.comment,
+      }))
+    : [
     {
       authorName: 'Sanjay Krishnan',
       role: 'Acquired 3 BHK Sky Suite • Indiranagar, Bangalore',

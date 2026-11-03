@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Building2, ShieldCheck, Mail, Phone } from 'lucide-react';
+import { Building2, ShieldCheck } from 'lucide-react';
 
 export function Footer() {
   return (

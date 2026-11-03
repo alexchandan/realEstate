@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { PropertyListing } from '@/lib/types';
 import { useNotifications } from '@/context/NotificationContext';
-import { X, AlertTriangle, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { X, CheckCircle2, ShieldAlert } from 'lucide-react';
 
 interface ReportModalProps {
   listing: PropertyListing | null;

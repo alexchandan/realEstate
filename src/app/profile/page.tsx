@@ -5,24 +5,11 @@ import { useAuth } from '@/context/AuthContext';
 import { SEED_PROPERTIES } from '@/lib/seedData';
 import { UserRole } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
-import {
-  User,
-  ShieldCheck,
-  Lock,
-  Heart,
-  Search,
-  Clock,
-  CheckCircle2,
-  AlertCircle,
-  Bell,
-  Settings,
-  Building,
-  LogOut,
-} from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ProfilePage() {
-  const { user, activeRole, setActiveRole, updateProfile, toggle2FA, submitKYC, logout } = useAuth();
+  const { user, activeRole, setActiveRole, updateProfile, toggle2FA, submitKYC } = useAuth();
   const { formatPrice } = useCurrency();
 
   const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'favorites' | 'history'>('profile');

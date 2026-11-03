@@ -11,7 +11,6 @@ import {
   MapPin,
   Building2,
   ShieldCheck,
-  RotateCw,
   Bed,
   SlidersHorizontal,
   ChevronRight,

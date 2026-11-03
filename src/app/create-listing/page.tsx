@@ -8,13 +8,7 @@ import {
   Building2,
   Sparkles,
   ShieldCheck,
-  Upload,
   CheckCircle2,
-  AlertCircle,
-  Compass,
-  Image as ImageIcon,
-  Tag,
-  ArrowRight,
   Bot,
 } from 'lucide-react';
 
@@ -28,28 +22,20 @@ export default function CreateListingPage() {
   const [purpose, setPurpose] = useState<'sale' | 'rent' | 'lease'>('sale');
   const [propertyType, setPropertyType] = useState('apartment');
   const [price, setPrice] = useState<number>(18500000);
-  const [isNegotiable, setIsNegotiable] = useState(true);
 
   // Specifications
   const [bhk, setBhk] = useState('3 BHK');
-  const [bedrooms, setBedrooms] = useState(3);
-  const [bathrooms, setBathrooms] = useState(3);
   const [carpetAreaSqFt, setCarpetAreaSqFt] = useState(1650);
-  const [builtUpAreaSqFt, setBuiltUpAreaSqFt] = useState(1950);
+  const builtUpAreaSqFt = 1950;
   const [superBuiltUpAreaSqFt, setSuperBuiltUpAreaSqFt] = useState(2150);
-  const [floor, setFloor] = useState(12);
-  const [totalFloors, setTotalFloors] = useState(24);
-  const [propertyAgeYears, setPropertyAgeYears] = useState(1);
-  const [furnished, setFurnished] = useState<'unfurnished' | 'semi-furnished' | 'fully-furnished'>('semi-furnished');
-  const [constructionStatus, setConstructionStatus] = useState<'ready-to-move' | 'under-construction'>('ready-to-move');
 
   // Location
   const [city, setCity] = useState('Bangalore');
   const [locality, setLocality] = useState('Indiranagar');
-  const [neighborhood, setNeighborhood] = useState('Defence Colony');
+  const neighborhood = 'Defence Colony';
   const [pinCode, setPinCode] = useState('560038');
   const [landmark, setLandmark] = useState('Near Metro Station');
-  const [formattedAddress, setFormattedAddress] = useState('100 Feet Road, Indiranagar, Bangalore, Karnataka 560038');
+  const formattedAddress = '100 Feet Road, Indiranagar, Bangalore, Karnataka 560038';
 
   // India Specifics
   const [reraNumber, setReraNumber] = useState('PRM/KA/RERA/1251/310/PR/230101/005678');
@@ -76,9 +62,7 @@ export default function CreateListingPage() {
   const [isGeneratingAi, setIsGeneratingAi] = useState(false);
 
   // Photos with AI Room Classification & Quality Score simulation
-  const [photos, setPhotos] = useState<
-    { url: string; roomType: string; qualityScore: number }[]
-  >([
+  const photos = [
     {
       url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
       roomType: 'Exterior & Architecture',
@@ -94,7 +78,7 @@ export default function CreateListingPage() {
       roomType: 'Master Suite',
       qualityScore: 92,
     },
-  ]);
+  ];
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 

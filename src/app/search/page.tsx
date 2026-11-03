@@ -22,17 +22,13 @@ const MapView = dynamic(() => import('@/components/MapView').then((mod) => mod.M
 });
 import {
   Search,
-  Filter,
   SlidersHorizontal,
   Map,
   Grid,
   Sparkles,
   BookmarkPlus,
   X,
-  RotateCcw,
-  Check,
   ShieldCheck,
-  Building,
 } from 'lucide-react';
 
 export default function SearchPage() {
@@ -48,7 +44,6 @@ export default function SearchPage() {
   const initialPurpose = searchParams.get('purpose') || 'all';
   const initialType = searchParams.get('type') || 'all';
   const initialBhk = searchParams.get('bhk') || 'all';
-  const initialMinPrice = Number(searchParams.get('minPrice')) || 0;
   const initialMaxPrice = Number(searchParams.get('maxPrice')) || 0;
   const initialSort = searchParams.get('sort') || 'recommended';
 

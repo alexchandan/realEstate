@@ -6,20 +6,15 @@ import { BuilderProject } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
 import {
   Building2,
-  Calendar,
   CheckCircle2,
   Clock,
   ShieldCheck,
   PlusCircle,
-  BarChart3,
-  Layers,
-  MapPin,
-  ArrowRight,
 } from 'lucide-react';
 
 export default function BuilderProjectsPage() {
   const { formatPrice } = useCurrency();
-  const [projects, setProjects] = useState<BuilderProject[]>(SEED_BUILDER_PROJECTS);
+  const [projects] = useState<BuilderProject[]>(SEED_BUILDER_PROJECTS);
   const [selectedProject, setSelectedProject] = useState<BuilderProject>(SEED_BUILDER_PROJECTS[0]);
 
   return (

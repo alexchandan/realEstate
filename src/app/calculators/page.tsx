@@ -18,7 +18,6 @@ import {
   TrendingUp,
   ArrowRight,
   ShieldCheck,
-  CheckCircle2,
 } from 'lucide-react';
 
 export default function CalculatorsPage() {
@@ -58,7 +57,7 @@ export default function CalculatorsPage() {
   // 5. Rental Yield & ROI State
   const [roiPropertyPrice, setRoiPropertyPrice] = useState(20000000);
   const [roiMonthlyRent, setRoiMonthlyRent] = useState(65000);
-  const [roiMaintenance, setRoiMaintenance] = useState(45000);
+  const roiMaintenance = 45000;
   const yieldData = calculateRentalYield(roiMonthlyRent * 12, roiPropertyPrice, roiMaintenance);
 
   return (

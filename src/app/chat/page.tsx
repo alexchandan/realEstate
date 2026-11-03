@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { ChatMessage } from '@/lib/types';
 import { useAuth } from '@/context/AuthContext';
-import { Send, CheckCheck, Paperclip, Building, MessageSquare } from 'lucide-react';
+import { Send, CheckCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ChatPage() {

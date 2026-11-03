@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Compass, ArrowRight, Map } from 'lucide-react';
+import { ArrowRight, Map } from 'lucide-react';
 
 export function InvestmentCorridorsSection() {
   const corridors = [

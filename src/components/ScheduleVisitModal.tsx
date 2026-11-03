@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { PropertyListing } from '@/lib/types';
 import { useNotifications } from '@/context/NotificationContext';
 import { useToast } from '@/context/ToastContext';
-import { X, Calendar, Clock, Video, MapPin, CheckCircle2, User, Phone, Mail } from 'lucide-react';
+import { X, Calendar, Clock, Video, MapPin, CheckCircle2 } from 'lucide-react';
 
 interface ScheduleVisitModalProps {
   listing: PropertyListing;
@@ -20,7 +20,6 @@ export function ScheduleVisitModal({ listing, isOpen, onClose }: ScheduleVisitMo
   const [timeSlot, setTimeSlot] = useState('11:00 AM - 12:00 PM');
   const [name, setName] = useState('Alex Estate User');
   const [phone, setPhone] = useState('+91 98765 43210');
-  const [email, setEmail] = useState('chandan@example.com');
   const [notes, setNotes] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
 

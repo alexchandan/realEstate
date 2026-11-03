@@ -7,20 +7,8 @@ import { useCurrency } from '@/context/CurrencyContext';
 import { useToast } from '@/context/ToastContext';
 import { exportToCSV } from '@/lib/exportCsv';
 import {
-  Users,
   Kanban,
-  Phone,
-  Mail,
-  Calendar,
-  DollarSign,
   PlusCircle,
-  MoreVertical,
-  CheckCircle2,
-  Clock,
-  ArrowRight,
-  TrendingUp,
-  ShieldCheck,
-  Building,
   Download,
 } from 'lucide-react';
 
@@ -28,7 +16,6 @@ export default function AgentCrmPage() {
   const { formatPrice } = useCurrency();
   const { showToast } = useToast();
   const [leads, setLeads] = useState<CRMLead[]>(SEED_LEADS);
-  const [selectedLead, setSelectedLead] = useState<CRMLead | null>(null);
 
   const handleExportLeads = () => {
     exportToCSV(leads, `leads-pipeline-${new Date().toISOString().split('T')[0]}.csv`, [

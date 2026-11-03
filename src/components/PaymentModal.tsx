@@ -8,12 +8,8 @@ import {
   X,
   CreditCard,
   Smartphone,
-  ShieldCheck,
   CheckCircle2,
   Lock,
-  Download,
-  Receipt,
-  Zap,
 } from 'lucide-react';
 
 interface PaymentModalProps {
@@ -110,7 +106,7 @@ export function PaymentModal({
             </div>
             <div>
               <h3 className="font-bold text-sm text-slate-900 dark:text-white">Secure Checkout</h3>
-              <p className="text-[11px] text-slate-400">256-bit Encrypted Transaction</p>
+              <p className="text-[11px] text-slate-400">256-bit Encrypted Transaction • {gatewayStatus}</p>
             </div>
           </div>
           <button

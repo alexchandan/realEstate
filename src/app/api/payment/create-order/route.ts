@@ -11,8 +11,7 @@ export async function POST(request: NextRequest) {
     }
 
     const rawBody = await request.json();
-    const { amount, currency = 'INR', description, method = 'card', customerEmail, customerName } =
-      sanitizeObject(rawBody);
+    const { amount, currency = 'INR', description } = sanitizeObject(rawBody);
 
     if (!amount || typeof amount !== 'number' || amount <= 0) {
       return NextResponse.json(apiError('Valid payment amount is required.'), { status: 400 });

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, ArrowRight, Building, Send, ShieldCheck, Compass, HelpCircle } from 'lucide-react';
+import { MessageSquare, X, ArrowRight, Building, Send } from 'lucide-react';
 import Link from 'next/link';
 
 interface Message {

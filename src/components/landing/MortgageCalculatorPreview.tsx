@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useCurrency } from '@/context/CurrencyContext';
-import { Calculator, ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 
 export function MortgageCalculatorPreview() {
   const { formatPrice } = useCurrency();

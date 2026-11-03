@@ -4,7 +4,6 @@ import {
   UserProfile,
   Offer,
   VisitBooking,
-  ChatMessage,
   CRMLead,
   AuditLogEntry,
   BuilderProject,
@@ -183,30 +182,6 @@ let memoryVisits: VisitBooking[] = [
     status: 'confirmed',
     notes: 'Would like to inspect car parking slots and club house amenities',
     createdAt: '2025-03-02T14:30:00Z',
-  },
-];
-let memoryMessages: ChatMessage[] = [
-  {
-    id: 'msg-1',
-    conversationId: 'conv-prop-1',
-    senderId: 'agent-1',
-    senderName: 'Vikram Malhotra',
-    senderAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-    recipientId: 'user-default',
-    text: 'Hello! Thank you for inquiring about The Grand Pavilion. The title deed is 100% clear and RERA registered.',
-    timestamp: '2025-03-02T11:00:00Z',
-    read: true,
-  },
-  {
-    id: 'msg-2',
-    conversationId: 'conv-prop-1',
-    senderId: 'user-default',
-    senderName: 'Alex Estate User',
-    senderAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
-    recipientId: 'agent-1',
-    text: 'Great! Can we schedule a site visit this Saturday at 11 AM?',
-    timestamp: '2025-03-02T11:05:00Z',
-    read: true,
   },
 ];
 let memoryNotifications: NotificationItem[] = [

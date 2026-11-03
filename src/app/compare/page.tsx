@@ -9,12 +9,6 @@ import {
   X,
   Plus,
   ShieldCheck,
-  Bed,
-  Bath,
-  Maximize2,
-  Compass,
-  Check,
-  Minus,
   ArrowRight,
 } from 'lucide-react';
 

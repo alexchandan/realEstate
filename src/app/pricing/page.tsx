@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useCurrency } from '@/context/CurrencyContext';
 import { PaymentModal } from '@/components/PaymentModal';
-import { Sparkles, Check, ShieldCheck, Zap, Building } from 'lucide-react';
+import { Sparkles, Check } from 'lucide-react';
 
 export default function PricingPage() {
   const { formatPrice } = useCurrency();

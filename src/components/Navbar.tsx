@@ -24,7 +24,6 @@ import {
   ChevronDown,
   User,
   LogOut,
-  Building,
 } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 

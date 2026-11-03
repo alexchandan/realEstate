@@ -9,19 +9,9 @@ import { useNotifications } from '@/context/NotificationContext';
 import { PaymentModal } from '@/components/PaymentModal';
 import {
   Building,
-  Eye,
-  Users,
   Calendar,
-  Tag,
   PlusCircle,
-  MoreVertical,
-  CheckCircle2,
-  Clock,
   Sparkles,
-  ShieldCheck,
-  FileText,
-  Wrench,
-  DollarSign,
   ArrowUpRight,
 } from 'lucide-react';
 

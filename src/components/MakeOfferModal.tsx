@@ -5,7 +5,7 @@ import { PropertyListing } from '@/lib/types';
 import { useCurrency } from '@/context/CurrencyContext';
 import { useNotifications } from '@/context/NotificationContext';
 import { useToast } from '@/context/ToastContext';
-import { X, Tag, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, Tag, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 interface MakeOfferModalProps {
   listing: PropertyListing;
